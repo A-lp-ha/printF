@@ -4,7 +4,7 @@
 #include <stdarg.h>
 
 /**
- * _printf - print stuff
+ * _printf - print different arguments
  * @format:pointer
  * @...: args
  * Return: always 0
@@ -12,34 +12,24 @@
 
 int _printf(const char *format, ...)
 {
-	int index = 0;
+int i = 0;
+int ct = 0;
 
+va_list args;
+va_start(args, format);
 
-	while (format[index] != '\0')
-	{
-		if (format[index] == 'c')
-		{
-			va_list args;
+if (format == NULL)
+return (-1);
 
-			va_start(args, format);
-			va_end(args);
-		}
-		else if (format[index] == 's')
-		{
-			va_list args;
-
-			va_start(args, format);
-			va_end(args);
-		}
-		else if (format[index] == '%')
-		{
-			va_list args;
-
-			va_start(args, format);
-			va_end(args);
-		}
-		else
-		{}
-	}
-		return (0);
+while (format[i] != '\0')
+{
+if (format[i] != '%')
+{
+_putchar(format[i]);
+ct++;
+continue;
+}
+}
+va_end(args);
+return (ct);
 }
