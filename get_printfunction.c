@@ -1,29 +1,33 @@
 #include "main.h"
+#include <stdarg.h>
 
 /**
 * get_printfunction - check description
 * Description: picks the right coreesponding function to the
 * conversion specifier
-* @c:specifier
+* @func:specifier
+* @arg:arguments
 * Return: pointer to the corresponding printing function
 */
 
-int (*get_printfunction(char c))(va_list)
+int get_printfunction(char func, va_list arg)
 {
-int i = 0;
+int i
+;
 f_list print_n[] = {
 {'c', print_char},
 {'s', print_string},
+{'d', print_int},
+{'i', print_int},
 {NULL, NULL}
 };
 
-while (print_n[i].convert)
+for (i = 0; print_n[i].f != NULL; i++)
 {
-if (c == print_n[i].convert)
+if (print_n[i].f[0] == func)
 {
-return (print_n[i].f);
+return (print_n[i].print(arg));
 }
-i++;
 }
-return (NULL);
+return (0);
 }
