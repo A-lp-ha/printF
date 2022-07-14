@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
-
+#include <stdio.h>
+#include <stdlib.h>
 /**
 * get_printfunction - check description
 * Description: picks the right coreesponding function to the

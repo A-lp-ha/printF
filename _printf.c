@@ -25,7 +25,7 @@ _putchar(format[i]);
 ct++;
 continue;
 }
-else if (format[i + 1] == '%')
+if (format[i + 1] == '%')
 {
 _putchar('%');
 ct++;
