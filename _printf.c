@@ -1,22 +1,22 @@
 #include "main.h"
-#include <string.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
 
 /**
-* printFunction - check description
+* printSpecifier - check description
 * Description:prints specifiers
-* @func:argument
+* @spec:argument
 * @arg:argument
 * Return: no of chars printed
 */
 
-int printFunction(char func, va_list arg)
+int printSpecifier(char spec, va_list arg)
 {
 unsigned int p;
 
-fList fs[] = {
+specifierStruct sp[] = {
 {"c", print_char},
 {"s", print_str},
 {"d", print_int},
@@ -24,11 +24,11 @@ fList fs[] = {
 {NULL, NULL}
 };
 
-for (p = 0; fs[p].f != NULL; p++)
+for (p = 0; sp[p].a != NULL; p++)
 {
-if (fs[p].f[0] == func)
+if (sp[p].a[0] == spec)
 {
-return (fs[p].print(arg));
+return (sp[p].print(arg));
 }
 }
 return (0);
@@ -44,7 +44,7 @@ int _printf(const char *format, ...)
 {
 unsigned int i;
 int ct = 0;
-int getFunction = 0;
+int specifierPrinted = 0;
 va_list arg;
 va_start(arg, format);
 if (format == NULL)
@@ -65,17 +65,17 @@ continue;
 }
 if (format[i + 1] == '\0')
 return (-1);
-getFunction = printFunction(format[i + 1], arg);
-if (getFunction == 0)
+specifierPrinted = printSpecifier(format[i + 1], arg);
+if (specifierPrinted == 0)
 {
 _putchar('%');
 ct++;
 }
-if (getFunction > 0)
+if (specifierPrinted > 0)
 {
-ct = ct + getFunction;
+ct = ct + specifierPrinted;
 }
-if (getFunction == -1 || getFunction != 0)
+if (specifierPrinted == -1 || specifierPrinted != 0)
 ct++;
 }
 va_end(arg);
