@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 /**
 * print_char - print characters
@@ -20,60 +21,45 @@ return (_putchar(va_arg(arg, int)));
 * Return: 1 successfull, -1 unsuccessfull
 */
 
-int print_string(va_list arg)
+int print_str(va_list arg)
 {
 int count;
-char *stg = va_arg(arg, char *);
+char *str = va_arg(arg, char *);
 
-for (count = 0; stg[count]; count++)
+if (str == NULL)
+str = "(null)";
+
+for (count = 0; str[count]; count++)
 {
-_putchar(stg[count]);
+_putchar(str[count]);
 }
 return (count);
 }
 
 /**
-* print_nan - check description
-* Description: writes characters after a % if nothing matches struct
-* @c1:char
-* @c2:char
-* Return: 1
+* print_int - check description
+* Description: prints integer
+* @arg:int 
+* 
+* Return: 0
 */
 
-int print_nan(char c1, char c2)
+int print_int(va_list arg)
 {
-if (c2 == '%')
-{
-write(1, &c2, 1);
-return (1);
-}
-else
-{
-write(1, &c1, 1);
-write(1, &c2, 1);
-return (2);
-}
-}
-
-/**
-* print_num - check description
-* Description: print int 'd'
-* @n:int
-*/
-
-void print_num(int n)
-{
-unsigned int num;
-
-if (n < 0)
+int d = va_arg(arg, int);
+unsigned int a = 1, i, r, c = 0;
+if (d < 0)
 {
 _putchar('-');
-num = -n;
+c++;
+d = d * (-1);
 }
-else
-num = n;
-if (num / 10)
-
-print_num(num / 10);
-_putchar((num % 10) + '0');
+for (i = 0; d / a >9; i++, a *=10)
+;
+for(; a >= 1; d %= a, a /= 10, c++)
+{
+r = d / a;
+_putchar('0' + r);
+}
+return (c);
 }
